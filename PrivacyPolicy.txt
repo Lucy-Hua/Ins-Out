@@ -10,7 +10,7 @@ The Ins & Out Scheduler addon runs within Googles App Scripts Sandbox and does n
 The Addon needs the follwing OAuth-Scopes:
 
 https://www.googleapis.com/auth/calendar
-This scope is used, to create calendar events in your calender
+This scope is used, to create or delete calendar events in your calender
 https://www.googleapis.com/auth/script.container.ui
 This scope is used, to integrate the addon into the existing spreadsheets UI.
 https://www.googleapis.com/auth/spreadsheets
