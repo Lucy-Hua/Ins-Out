@@ -1,0 +1,18 @@
+Privacy at short:
+
+Who: Ins & Out Scheduler does not collect any information about their users outside of the google scripts sandbox. 
+What: Ins & Out Scheduler only collects data that is needed to access user's google sheets and calendar,  all requested data will not leave the google ecosystem.
+Why: See what scopes are used and why in the OAuth-Scope-List below .
+
+
+The Ins & Out Scheduler addon runs within Googles App Scripts Sandbox and does not require any kind of external access. Therefore neither we or any third party provider has access to your informations. 
+
+The Addon needs the follwing OAuth-Scopes:
+
+https://www.googleapis.com/auth/calendar
+This scope is used, to create calendar events in your calender
+https://www.googleapis.com/auth/script.container.ui
+This scope is used, to integrate the addon into the existing spreadsheets UI.
+https://www.googleapis.com/auth/spreadsheets
+This scope is used, to read from spreadsheet 
+
