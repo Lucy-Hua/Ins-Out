@@ -9,7 +9,7 @@ be updated or changed at any time, the add-on is designed to automatically updat
 whenever there is an edit to the Google Sheet<sup>TM</sup> containing the schedule. 
 
 
-##Instructions
+## Instructions
 <img src="assets/Ins&OutsScreenshot3.png"/>
 
 **1. Select Calendar:**
@@ -29,6 +29,6 @@ When everything is filled out, press the green button “Save”
 
 You only need to initialize the add-on once. The add-on will update your personal calendar to reflect the Ins and Outs schedule every time you edit the spreadsheet. 
 
-##Compatability
+## Compatability
 This add-on is desisgned with multiple schedule templates in mind. For example, it will work with the following: 
 <img src="assets/CustomSchedules.gif"/>
