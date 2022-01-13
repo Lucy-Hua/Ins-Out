@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <base target="_top">
+    <style>
+  
+    body{
+        background:#d4ebf2;
+        font-size: 15px;
+        font-family: Georgia, serif;
+    }
+    
+    #sideTitle{
+        background: white;
+        color: black; 
+        border-radius: 0.3em; 
+    }
+    
+    select {
+        width:80%;  
+        border-radius:0.3em; 
+     
+        overflow: hidden;
+        margin-top: 6px;
+        margin-bottom: 3px;
+    }
+    
+    button{
+         margin-top: 5px;
+          margin-bottom: 0px;
+        background: #008CFA;
+        color: white; 
+         padding: 3px 6px; 
+        border-radius: 0.5em;
+    }
+    .button1{
+        background-color: #4CAF50;/* Green */
+         padding: 6px 69px; 
+     } 
+    input{
+        margin-top: 0px;
+        margin-bottom: 3px;
+        border-radius:0.3em; 
+    
+       
+    }
+     h2{
+         padding: 3px 10px;
+    }
+    h5{
+         margin-top: 6px;
+         margin-bottom: 3px;
+    }
+    p{
+        font-size: 13px;
+        line-height: 18px;
+        color: #404040;
+        margin-top: 0px;
+        margin-bottom: 5px;
+       
+    }
+    
+    label {
+        color: #404040;
+        float: left;
+        font-size: 13px;
+        line-height: 13px;
+        padding-top: 0px;
+        text-align: right;
+        width: 130px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    form .input {
+        margin-left: 150px;
+    }
+
+    form .line {
+        margin-bottom: 18px;
+    }
+
+
+    </style>
+    </head>
+    <body>
+        <center>
+            <h2 id="sideTitle"> Update Ins and Outs to Calender </h2>
+        <form>
+            <h5 class="label">Select calendar
+                <select id="calIndex" name="calIndex" value="0" > </select>
+            </h5>
+
+            <h5>
+                RA Name:
+            </h5>
+            <p>Please click on your name in the sheet from the first week (will take some time to show up) </p>
+            <input type = "text" class = "form-control" id="raName" name="raName">
+            <button id="select"  type="button" onClick="selectRA()">Select RA</button> 
+   
+          
+            <br>
+            <h5>
+                Symbols:
+            </h5>
+ 
+            <label for="input">In-night:</label>
+            <div class="input">
+                <input type="text" id="inNightSymbol" name="inNightSymbol" size = 11> 
+            </div>
+           
+            <label for="input">Duty Phone:</label>
+            <div class="input">
+                <input id="dutyPhoneSymbol" type="text"  name="dutyPhoneSymbol" size = 11> 
+            </div>
+
+            <label for="input">Duty Round:</label>
+            <div class="input">
+                <input id="dutyRoundSymbol" type="text"  name="dutyRoundSymbol" size = 11> 
+            </div>
+            
+            <h5>
+                Notification Settings:
+            </h5>
+            <input type="checkbox" id="notifNone" name="notif" value="None" onclick="saveNotifSettings(this.id)" >
+            <label for="notifNone"> None</label><br>
+            
+            <input type="checkbox" id="notif5" name="notif" value="5" onclick="saveNotifSettings(this.id)">
+            <label for="notif5min"> 5 min before</label><br>
+            
+            <input type="checkbox" id="notif10" name="notif" value="10" onclick="saveNotifSettings(this.id)">
+            <label for="notif10min"> 10 min before</label><br>
+            
+            <input type="checkbox" id="notif30" name="notif" value="30" onclick="saveNotifSettings(this.id)">
+            <label for="notif30min"> 30 min before</label><br>
+            
+            <input type="checkbox" id="notif60" name="notif" value="60" onclick="saveNotifSettings(this.id)">
+            <label for="notif1hr"> 1 hr before</label><br>
+            
+            <input type="checkbox" id="notif300" name="notif" value="300" onclick="saveNotifSettings(this.id)">
+            <label for="notif5hr"> 5 hr before</label><br>
+            
+            <input type="checkbox" id="notif1440" name="notif" value="1440" onclick="saveNotifSettings(this.id)">
+            <label for="notif1day"> 1 day before</label><br>
+           
+    
+            <br>
+            <button class= "button1"  id="select"  type="button" onClick="saveForm()">Save</button>
+            <br>
+            <p style="font-size: 0.7em;"id="savedAt"></p>
+            <p style="font-size: 0.7em;"id="currentSheet"></p>
+        
+ 
+           <button  id="deleteCalenders"  type="button" onClick="deleteRAEvents()">Delete RA related calender events</button>
+           <button  id="deleteProperties"  type="button" onClick="resetForm()">Reset Form</button>
+              
+          
+           
+      
+        </form>
+        </center>
+    </body>
+  
+   <script type="text/javascript">
+
+        var questionsDrop;
+         google.script.run.updateDisplayProperties();
+    
+        google.script.run.withSuccessHandler(outputQuestions).getAllHeaders();
+        google.script.run.withSuccessHandler(outputCalendars).getCalendars();
+        
+    
+        function outputQuestions(allItems){
+            var all = document.getElementsByClassName("dropQuestion");
+            for(var i = 0; i < all.length; i++){
+                all[i].innerHTML = allItems;
+            } 
+        }
+       
+        function outputCalendars(calendars){
+            document.getElementById("calIndex").innerHTML = calendars;
+            // Shows all saved info for the sidebar
+            google.script.run.withSuccessHandler(updateAll).getSavedPropsForSidebar();
+                        
+      
+        }
+    
+  
+        function selectRA(){
+            google.script.run.withSuccessHandler(updateRAName).selectCurrentCell();
+            google.script.run.withSuccessHandler(updateRAName).getSavedPropsForSidebar();
+        }
+    
+        function deleteRAEvents(){
+            google.script.run.deleteRAevents();
+        }
+    
+        function saveForm(properties) {     
+            google.script.run.saveSidebar(document.forms[0]);
+            google.script.run.updateCalender();
+            saveNotifSettings();
+            
+    
+            document.getElementById('savedAt').innerHTML = "Saved: " + (new Date()).toString().substring(0, 24);
+            google.script.run.withSuccessHandler(updateCurrentSheetName).getSavedPropsForSidebar();
+        }
+
+        function updateCalender(properties) {
+            document.getElementById('calIndex').selectedIndex = properties.calendarIndex || '0';
+        }
+        function saveNotifSettings(this_id){
+              if("notifNone" == this_id){ //user selected "none"
+                   UncheckNotifCheckbox();
+             }
+             else{
+                    document.getElementById('notifNone').checked = false;
+             }
+             var checkedNotifBoxes = [];
+             var selectedNotif ="";
+             checkedNotifBoxes = getSelectedCheckboxValues("notif");
+             checkedNotifBoxes.forEach((name) => {
+                selectedNotif = selectedNotif.concat(name, ",");
+                });
+             google.script.run.saveNotifSettings(selectedNotif.slice(0, -1));
+             
+        }
+        function updateAll(properties) {
+            document.getElementById('calIndex').selectedIndex = properties.calendarIndex || '0';
+            document.getElementById('raName').value = properties.raName || 'no name selected';
+            document.getElementById('inNightSymbol').value = properties.inNightSymbol || '';
+            document.getElementById('dutyPhoneSymbol').value = properties.dutyPhoneSymbol || '';
+            document.getElementById('dutyRoundSymbol').value = properties.dutyRoundSymbol || '';
+             updateNotifSetting(properties)
+             document.getElementById('currentSheet').innerHTML = "Current Sheet: " + properties.sheetNameofCurrentMonth;
+            
+        }
+        
+        
+        function updateNotifSetting(properties) {
+            
+             var selectedNotifTimes = [];
+            
+             selectedNotifTimes = properties.selectedNotif.split(",");
+             for(var i=0; i< selectedNotifTimes.length;i++){
+                 document.getElementById('notif'+selectedNotifTimes[i]).checked= true;
+             }
+        
+        }
+        function updateSymbols(properties) {
+            document.getElementById('inNightSymbol').value = properties.inNightSymbol || '';
+            document.getElementById('dutyPhoneSymbol').value = properties.dutyPhoneSymbol || '';
+            document.getElementById('dutyRoundSymbol').value = properties.dutyRoundSymbol || '';
+        }
+        function updateRAName(properties) {
+            document.getElementById('raName').value = properties.raName || 'no name selected';
+            
+            //just in case it didnt update
+            document.getElementById('currentSheet').innerHTML = "Current Sheet: " + properties.sheetNameofCurrentMonth;
+        }
+        function updateCurrentSheetName(properties) {
+            document.getElementById('currentSheet').innerHTML = "Current Sheet: " + properties.sheetNameofCurrentMonth;
+        }
+        
+        
+        
+        function getSelectedCheckboxValues(name) {
+            var markedCheckbox = document.getElementsByName(String(name));
+            let values = [];
+            for (var checkbox of markedCheckbox) {  
+    			if (checkbox.checked) { 
+      				values.push(checkbox.value); 
+                }
+ 			}  
+            return values;  
+        }
+        
+        function UncheckNotifCheckbox() {
+            var markedCheckbox = document.getElementsByName("notif");
+            for (var i =1; i< markedCheckbox.length; i++){
+                 markedCheckbox[i].checked=false;
+            }
+
+        }
+        
+        function resetForm(properties){
+           var markedCheckbox = document.getElementsByName(String("notif"));
+           for (var i =1; i < markedCheckbox.length; i++){  
+    			markedCheckbox[i].checked = false;
+ 			}  
+        google.script.run.withSuccessHandler(google.script.run.withSuccessHandler(updateAll).getSavedPropsForSidebar()).deleteProporties();
+        markedCheckbox[0].checked=true;
+   
+        }
+
+    
+    </script>
+</html>
