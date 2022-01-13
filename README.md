@@ -1,3 +1,6 @@
+
+<img src="assets/Ins&OutsSchedulerBanner.png"/>
+
 # Ins-Out
 Automatically create Google Calendar<sup>TM</sup> events from Google Sheets<sup>TM</sup> schedule. Specifically designed 
 for Resident Advisors (RA) working for the University of British Columbia Student Housing. This add-on will enable RA's
