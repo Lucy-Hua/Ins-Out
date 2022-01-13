@@ -24,7 +24,7 @@ Write down the symbol you used in the spreadsheet that represents an “in-night
 **4. Notification Setting:**
 Choose when you would like to be notified of sign in (7:50pm)
 
-**5. Save**
+**5. Save:**
 When everything is filled out, press the green button “Save”
 
 You only need to initialize the add-on once. The add-on will update your personal calendar to reflect the Ins and Outs schedule every time you edit the spreadsheet. 
